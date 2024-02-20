@@ -1,8 +1,15 @@
+using BudgetAssistantAPI.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+// Configure DB Context
+var connectionstring = builder.Configuration.GetConnectionString("appDb");
+builder.Services.AddDbContext<BudgetAssistantDbContext>(options => options.UseSqlServer(connectionstring));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
